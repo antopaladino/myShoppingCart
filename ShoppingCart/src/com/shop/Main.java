@@ -1,7 +1,7 @@
 package com.shop;
 
 
-import java.text.DecimalFormat;
+import java.util.Scanner;
 
 /**
  * The class add products to the shopping basket and does a checkout at the end.
@@ -16,57 +16,48 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Basket basket = new Basket();
+		String input = null;
 		
-		if (args.length > 0){
-			for (int i=0; i<args.length; i++){
-				String fruitName = args[i].toLowerCase();
-				switch (fruitName) {
-				case Fruit.APPLE_NAME:
-					basket.addFruit(new Apple());
-					break;
-				case Fruit.ORANGE_NAME:
-					basket.addFruit(new Orange());
-					break;
-				case Fruit.BANANA_NAME:
-					basket.addFruit(new Banana());
-					break;
-				case Fruit.MELON_NAME:
-					basket.addFruit(new Melon());
-					break;
-				default:
-					System.out.println(String.format("'%s' is not valid", fruitName));
-					break;
-				}				
+		// create a scanner so we can read the command-line input
+		Scanner in = new Scanner(System.in);
+		System.out.println("ShoppingCart application");
+		System.out.println("Add fruit to the basket. Type 'exit' if you want exit.");
+	    do {
+	    	//  prompt for the fruit name
+		    System.out.print("Fruit name: ");
+		    // get their input as a String
+		    input = in.next();
+		    
+		    // Add fruit to basket
+			switch (input) {
+			case Fruit.APPLE_NAME:
+				basket.addFruit(new Apple());
+				break;
+			case Fruit.ORANGE_NAME:
+				basket.addFruit(new Orange());
+				break;
+			case Fruit.BANANA_NAME:
+				basket.addFruit(new Banana());
+				break;
+			case Fruit.MELON_NAME:
+				basket.addFruit(new Melon());
+				break;
+			default:
+				System.out.println(String.format("'%s' is not valid", input));
+				break;
+			}				
+			
+			// Print shopping list
+			if (basket.getFruitList().size() == 0){
+				System.out.println("Basket is empty");
+			} else {
+				System.out.println("List of products in the basket: " + basket.getFruitNameList());	
 			}
-			System.out.println("List of products in the basket: " + basket.getFruitNameList());
-		} else {
-			// Use a predefined list of products
-			basket.addFruit(new Apple());
-			basket.addFruit(new Apple());
-			basket.addFruit(new Orange());
 			
+			// Apply offers and calculate total
+			basket.checkout();
 			
-			System.out.println("Pre-defined list of products loaded into the basket: " + basket.getFruitNameList());
-			
-		}
-		
-		DecimalFormat df = new DecimalFormat("#,##0.00");
-		double discountGetOneFree = Offer.getOfferBuyOneGetOneFree(basket.getFruitNameList(), new Apple() );
-		discountGetOneFree += Offer.getOfferBuyOneGetOneFree(basket.getFruitNameList(), new Banana() );
-		double discountThreeForTwo = Offer.getOfferThreeForTwo(basket.getFruitNameList(), new Orange() );
-		discountThreeForTwo += Offer.getOfferThreeForTwo(basket.getFruitNameList(), new Melon() );
-		
-		double discountCheapestForFree = Offer.cheapestFruitForFree(basket.getFruitList());
-		double total = basket.checkout() - discountGetOneFree - discountThreeForTwo - discountCheapestForFree;
-		
-		
-		System.out.println(String.format("£ %s Total cost", df.format(total)));
-		if (discountGetOneFree > 0)
-			System.out.println(String.format("£ %s Promotional Saving *** Buy One Get One Free ***", df.format(discountGetOneFree)));
-		if (discountThreeForTwo > 0)
-			System.out.println(String.format("£ %s Promotional Saving *** 3 for the price of 2 ***", df.format(discountThreeForTwo)));
-		if (discountCheapestForFree > 0)
-			System.out.println(String.format("£ %s Promotional Saving *** Cheapest for free ***", df.format(discountCheapestForFree)));
+	    } while (!input.equals("exit"));
 		
 	}
 

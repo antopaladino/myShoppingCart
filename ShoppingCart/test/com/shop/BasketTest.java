@@ -22,36 +22,31 @@ public class BasketTest {
 	}
 
 	@Test
-	public void addOneAppleToBasket() {
+	public void addAppleToBasketTest() {
 		basket.addFruit(new Apple());
 	    assertThat(basket.getFruitList().size(), is(1));
 	    assertThat(basket.getFruitNameList().contains(Fruit.APPLE_NAME), is(true));
 	}
 	
 	@Test
-	public void addOneOrangeToBasket() {
+	public void addOrangeToBasketTest() {
 		basket.addFruit(new Orange());
 	    assertThat(basket.getFruitList().size(), is(1));
 	    assertThat(basket.getFruitNameList().contains(Fruit.ORANGE_NAME), is(true));
 	}
 	
-	@Test 
-	public void checkoutBasketWithTwoOranges(){
-		basket.addFruit(new Orange());
-		basket.addFruit(new Orange());
-		double total = basket.checkout();
-		assertThat(basket.getFruitList().size(), is(2));
-		assertThat(total, is(2*Fruit.ORANGE_PRICE));
+	@Test
+	public void addMelonToBasketTest() {
+		basket.addFruit(new Melon());
+	    assertThat(basket.getFruitList().size(), is(1));
+	    assertThat(basket.getFruitNameList().contains(Fruit.MELON_NAME), is(true));
 	}
 	
-	@Test 
-	public void checkoutBasketWithThreeFruits(){
-		basket.addFruit(new Apple());
-		basket.addFruit(new Orange());
+	@Test
+	public void addBananaToBasketTest() {
 		basket.addFruit(new Banana());
-		double total = basket.checkout();
-		assertThat(basket.getFruitList().size(), is(3));
-		assertThat(total, is(Fruit.APPLE_PRICE + Fruit.ORANGE_PRICE + Fruit.BANANA_PRICE));
+	    assertThat(basket.getFruitList().size(), is(1));
+	    assertThat(basket.getFruitNameList().contains(Fruit.BANANA_NAME), is(true));
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.shop;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,9 +49,27 @@ public class Basket {
 	double checkout() {
 		double total = 0;
 		for (Fruit item : fruitList){
-			total += item.getPrice();
-			
+			total += item.getPrice();	
 		}	
+		
+		// Apply offers and calculate total
+		double discountGetOneFree = Offer.getOfferBuyOneGetOneFree(getFruitNameList(), new Apple() );
+		discountGetOneFree += Offer.getOfferBuyOneGetOneFree(getFruitNameList(), new Banana() );
+		double discountThreeForTwo = Offer.getOfferThreeForTwo(getFruitNameList(), new Orange() );
+		discountThreeForTwo += Offer.getOfferThreeForTwo(getFruitNameList(), new Melon() );		
+		double discountCheapestForFree = Offer.cheapestFruitForFree(getFruitList());
+		total += - discountGetOneFree - discountThreeForTwo - discountCheapestForFree;
+		
+		DecimalFormat df = new DecimalFormat("#,##0.00");
+		// Print out the total cost and saving
+		System.out.println(String.format("£ %s Total cost", df.format(total)));
+		if (discountGetOneFree > 0)
+			System.out.println(String.format("£ %s Promotional Saving *** Buy One Get One Free ***", df.format(discountGetOneFree)));
+		if (discountThreeForTwo > 0)
+			System.out.println(String.format("£ %s Promotional Saving *** 3 for the price of 2 ***", df.format(discountThreeForTwo)));
+		if (discountCheapestForFree > 0)
+			System.out.println(String.format("£ %s Promotional Saving *** Cheapest for free ***", df.format(discountCheapestForFree)));
+					
 		return total;		
 	}
 }
