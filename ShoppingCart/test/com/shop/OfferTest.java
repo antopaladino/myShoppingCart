@@ -47,6 +47,15 @@ public class OfferTest {
 	}
 	
 	@Test
+	public void getOfferThreeForTwoOnMelonTest() {
+		basket.addFruit(new Melon());
+		basket.addFruit(new Melon());
+		basket.addFruit(new Melon());
+		double discount = Offer.getOfferThreeForTwo(basket.getFruitNameList(), new Melon());
+		assertThat(discount, is(Fruit.MELON_PRICE));
+	}
+	
+	@Test
 	public void cheapestFruitForFreeTest() {
 		basket.addFruit(new Apple());
 		basket.addFruit(new Banana());

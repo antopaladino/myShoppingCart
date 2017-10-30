@@ -30,6 +30,9 @@ public class Main {
 				case Fruit.BANANA_NAME:
 					basket.addFruit(new Banana());
 					break;
+				case Fruit.MELON_NAME:
+					basket.addFruit(new Melon());
+					break;
 				default:
 					System.out.println(String.format("'%s' is not valid", fruitName));
 					break;
@@ -51,6 +54,8 @@ public class Main {
 		double discountGetOneFree = Offer.getOfferBuyOneGetOneFree(basket.getFruitNameList(), new Apple() );
 		discountGetOneFree += Offer.getOfferBuyOneGetOneFree(basket.getFruitNameList(), new Banana() );
 		double discountThreeForTwo = Offer.getOfferThreeForTwo(basket.getFruitNameList(), new Orange() );
+		discountThreeForTwo += Offer.getOfferThreeForTwo(basket.getFruitNameList(), new Melon() );
+		
 		double discountCheapestForFree = Offer.cheapestFruitForFree(basket.getFruitList());
 		double total = basket.checkout() - discountGetOneFree - discountThreeForTwo - discountCheapestForFree;
 		
