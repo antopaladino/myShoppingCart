@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 
 /**
  * The class add products to the shopping basket and does a checkout at the end.
- * The class allows passing in a list of String values as fruit name ex. orange, banana.
+ * The class allows passing in a list of String values as fruit name ex. orange, apple.
  * If no arguments are provided than the class will load a predefined list of fruit.
  * 
  * @author Antonio Paladino
@@ -23,14 +23,12 @@ public class Main {
 				switch (fruitName) {
 				case Fruit.APPLE_NAME:
 					basket.addFruit(new Apple());
-					System.out.println(String.format("'%s' added to basket", fruitName));
 					break;
 				case Fruit.ORANGE_NAME:
 					basket.addFruit(new Orange());
-					System.out.println(String.format("'%s' added to basket", fruitName));
 					break;
 				default:
-					System.out.println(String.format("'%s' product not valid. System accepts only: apple and orange", fruitName));
+					System.out.println(String.format("'%s' is not valid", fruitName));
 					break;
 				}				
 			}
@@ -47,8 +45,16 @@ public class Main {
 		}
 		
 		DecimalFormat df = new DecimalFormat("#,##0.00");
-		double total = basket.checkout();
+		double discountGetOneFree = Offer.getOfferBuyOneGetOneFree(basket.getFruitNameList(), new Apple() );
+		double discountThreeForTwo = Offer.getOfferThreeForTwo(basket.getFruitNameList(), new Orange() );
+		double total = basket.checkout() - discountGetOneFree - discountThreeForTwo;
+		
+		
 		System.out.println(String.format("£ %s Total cost", df.format(total)));
+		if (discountGetOneFree > 0)
+			System.out.println(String.format("£ %s Promotional Saving *** Buy One Get One Free ***", df.format(discountGetOneFree)));
+		if (discountThreeForTwo > 0)
+			System.out.println(String.format("£ %s Promotional Saving *** 3 for the price of 2 ***", df.format(discountThreeForTwo)));
 		
 	}
 
