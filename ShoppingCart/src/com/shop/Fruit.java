@@ -7,13 +7,15 @@ package com.shop;
  *
  */
 		
-public class Fruit {
+public abstract class Fruit {
 	static final String APPLE_NAME = "apple";
-	static final String ORANGE_NAME = "orange";
 	static final double APPLE_PRICE = 0.25;
+	static final String ORANGE_NAME = "orange";
 	static final double ORANGE_PRICE = 0.6;
 	static final String BANANA_NAME = "banana";
 	static final double BANANA_PRICE = 0.2;
+	static final String MELON_NAME = "melon";
+	static final double MELON_PRICE = 1;
 	
 	private String name;
 	private double price;
@@ -78,5 +80,16 @@ class Banana extends Fruit {
 	public Banana() {
 		super(BANANA_NAME);
 		this.setPrice(BANANA_PRICE);
+	}
+}
+
+class Melon extends Fruit {
+	
+	/**
+	 * Class constructor setting the price
+	 */
+	public Melon() {
+		super(MELON_NAME);
+		this.setPrice(MELON_PRICE);
 	}
 }
