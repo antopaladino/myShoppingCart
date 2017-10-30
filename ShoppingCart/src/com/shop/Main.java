@@ -29,7 +29,7 @@ public class Main {
 		    input = in.next();
 		    
 		    // Add fruit to basket
-			switch (input) {
+			switch (input.toLowerCase()) {
 			case Fruit.APPLE_NAME:
 				basket.addFruit(new Apple());
 				break;
