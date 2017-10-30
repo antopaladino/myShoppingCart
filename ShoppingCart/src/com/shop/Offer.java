@@ -52,4 +52,20 @@ public class Offer {
     	}
     	return discount;
 	}
+	
+	/**
+	 * Find the cheapest fruit in the basket
+	 * @param fruitList list of fruits
+	 * @return the price of the cheapest fruit if there are more than 1 fruit in the list
+	 */
+	public static double cheapestFruitForFree(List<Fruit> fruitList){
+		if (fruitList != null && fruitList.size() > 1){
+			Fruit cheapetFruit = fruitList.stream()
+	                .min((p1, p2) -> Double.compare(p1.getPrice(), p2.getPrice()))
+	                .get();
+			return cheapetFruit.getPrice();
+		} else{
+			return 0d;
+		}
+	}
 }

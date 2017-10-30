@@ -29,6 +29,13 @@ public class OfferTest {
 		assertThat(discount, is(Fruit.APPLE_PRICE));
 	}
 	
+	@Test
+	public void getOfferBuyOneGetOneFreeOnBananaTest() {
+		basket.addFruit(new Banana());
+		basket.addFruit(new Banana());
+		double discount = Offer.getOfferBuyOneGetOneFree(basket.getFruitNameList(), new Banana());
+		assertThat(discount, is(Fruit.BANANA_PRICE));
+	}
 	
 	@Test
 	public void getOfferThreeForTwoOnOrangeTest() {
@@ -39,5 +46,12 @@ public class OfferTest {
 		assertThat(discount, is(Fruit.ORANGE_PRICE));
 	}
 	
+	@Test
+	public void cheapestFruitForFreeTest() {
+		basket.addFruit(new Apple());
+		basket.addFruit(new Banana());
+		double discount = Offer.cheapestFruitForFree(basket.getFruitList());
+		assertThat(discount, is(Fruit.BANANA_PRICE));
+	}
 	
 }

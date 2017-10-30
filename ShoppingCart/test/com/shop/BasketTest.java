@@ -40,7 +40,18 @@ public class BasketTest {
 		basket.addFruit(new Orange());
 		basket.addFruit(new Orange());
 		double total = basket.checkout();
+		assertThat(basket.getFruitList().size(), is(2));
 		assertThat(total, is(2*Fruit.ORANGE_PRICE));
+	}
+	
+	@Test 
+	public void checkoutBasketWithThreeFruits(){
+		basket.addFruit(new Apple());
+		basket.addFruit(new Orange());
+		basket.addFruit(new Banana());
+		double total = basket.checkout();
+		assertThat(basket.getFruitList().size(), is(3));
+		assertThat(total, is(Fruit.APPLE_PRICE + Fruit.ORANGE_PRICE + Fruit.BANANA_PRICE));
 	}
 
 }
